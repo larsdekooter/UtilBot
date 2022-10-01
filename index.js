@@ -1,6 +1,7 @@
-import { verifyKeyMiddleware } from "discord-interactions";
-import express from "express";
-import { InteractionResponseType } from "discord-api-types/v10";
+const { verifyKeyMiddleware } = require("discord-interactions");
+const express = require("express");
+const { InteractionResponseType } = require("discord-api-types/v10");
+const path = require("path");
 class Interaction {
   data;
   constructor(interaction) {
@@ -13,7 +14,9 @@ class Interaction {
 const app = express();
 app.use(express.static("Public"));
 
-app.get("/", (req, res) => res.sendFile("index.html", { root: "." }));
+app.get("/", (req, res) =>
+  res.sendFile("index.html", { root: path.join(__dirname, "Public") })
+);
 app.get(
   "/inter",
   verifyKeyMiddleware(
