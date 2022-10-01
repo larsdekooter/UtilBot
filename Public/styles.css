@@ -11,7 +11,7 @@ html {
   margin-top: 10%;
 }
 
-.container img {
+.container .logo {
   border-radius: 100%;
 }
 
@@ -22,4 +22,11 @@ html {
   top: 55%;
   font-weight: 600;
   font-size: 50px;
+}
+
+.container .powered {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%);
 }
