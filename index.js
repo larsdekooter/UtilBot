@@ -35,7 +35,9 @@ app.post(
     }
     const interaction = new Interaction(req.body);
     if (interaction.commandName === "grav") {
-      return reply({ content: calculateGravity().toString() });
+      return reply({
+        content: calculateGravity().toString() + "\nFz = (G * M) / r²",
+      });
     }
   }
 );
