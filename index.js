@@ -11,7 +11,9 @@ class Interaction {
   }
 }
 const app = express();
-app.get("/", (req, res) => res.send("Here I am"));
+app.use(express.static("./Public"));
+
+app.get("/", (req, res) => res.sendFile("index.html", { root: "." }));
 app.get(
   "/inter",
   verifyKeyMiddleware(
@@ -34,6 +36,7 @@ app.get(
     }
   }
 );
+
 function calculateGravity(
   r = 6.4e6, //6,4 * 10⁶
   G = 6.67e-11, //6,67 * 10⁻¹¹
@@ -43,4 +46,5 @@ function calculateGravity(
   const Fz = (G * M) / pow(r, 2); // Fz === Fg = mg === G * (mM / r²) = g ==== G * (M / r²);
   return Fz;
 }
+
 app.listen(3000, () => console.log("seeya"));
