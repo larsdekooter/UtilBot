@@ -17,7 +17,7 @@ app.use(express.static("Public"));
 app.get("/", (req, res) =>
   res.sendFile("index.html", { root: path.join(__dirname, "Public") })
 );
-app.get(
+app.post(
   "/inter",
   verifyKeyMiddleware(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
