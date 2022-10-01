@@ -15,7 +15,7 @@ const app = express();
 app.use(express.static("Public"));
 
 app.get("/", (req, res) =>
-  res.sendFile("index.html", { root: path.join(__dirname, "Public", "HTML") })
+  res.sendFile("index.html", { root: path.join(__dirname, "Public") })
 );
 app.post(
   "/inter",
