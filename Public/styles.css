@@ -2,7 +2,7 @@
   --DiscordBackgroundColor: #36393f;
 }
 html {
-  background-color: var(--DiscordBackgroundColr);
+  background-color: var(--DiscordBackgroundColor);
 }
 
 .container {
