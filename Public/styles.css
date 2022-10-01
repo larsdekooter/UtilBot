@@ -9,6 +9,9 @@ html {
   display: flex;
   justify-content: center;
   margin-top: 10%;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 .container .logo {
