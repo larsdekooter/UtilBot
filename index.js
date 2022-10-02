@@ -1,18 +1,17 @@
-const { verifyKeyMiddleware } = require("discord-interactions");
-const express = require("express");
-const { InteractionResponseType } = require("discord-api-types/v10");
-const path = require("path");
-class Interaction {
-  data;
-  constructor(interaction) {
-    this.data = interaction.data;
-  }
-  get commandName() {
-    return this.data.name;
-  }
-}
+import { verifyKeyMiddleware } from "discord-interactions";
+import express from "express";
+import { InteractionResponseType } from "discord-api-types/v10";
+import path, { dirname } from "path";
+import * as Discord from "kooterdiscordstructures";
+import { fileURLToPath } from "url";
+import "dotenv/config";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
+
+const client = new Discord.Client(app);
 
 app.get("/", (req, res) =>
   res.sendFile("index.html", { root: path.join(__dirname, "Public") })
@@ -23,17 +22,7 @@ app.post(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
   ),
   async (req, res) => {
-    async function reply(options) {
-      options =
-        typeof options === "string"
-          ? (options = { content: options })
-          : options;
-      return res.send({
-        data: options,
-        type: InteractionResponseType.ChannelMessageWithSource,
-      });
-    }
-    const interaction = new Interaction(req.body);
+    const interaction = new Discord.CommandInteraction(res, req.body, client);
     if (interaction.commandName === "grav") {
       return reply({
         content: calculateGravity().toString() + "\nFz = (G * M) / r²",
@@ -53,3 +42,4 @@ function calculateGravity(
 }
 
 app.listen(3000, () => console.log("seeya"));
+client.login(process.env.token);
