@@ -2,7 +2,7 @@ import { verifyKeyMiddleware } from "discord-interactions";
 import express from "express";
 import { InteractionResponseType } from "discord-api-types/v10";
 import path, { dirname } from "path";
-import { CommandInteraction } from "kooterdiscordstructures";
+import { CommandInteraction, Client } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 
@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
 
-const client = new Discord.Client(app);
+const client = new Client(app);
 
 app.get("/", (req, res) =>
   res.sendFile("index.html", { root: path.join(__dirname, "Public") })
