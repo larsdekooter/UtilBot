@@ -2,7 +2,7 @@ import { verifyKeyMiddleware } from "discord-interactions";
 import express from "express";
 import { InteractionResponseType } from "discord-api-types/v10";
 import path, { dirname } from "path";
-import * as Discord from "kooterdiscordstructures";
+import { CommandInteraction } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 
@@ -22,9 +22,9 @@ app.post(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
   ),
   async (req, res) => {
-    const interaction = new Discord.CommandInteraction(res, req.body, client);
+    const interaction = new CommandInteraction(res, req.body, client);
     if (interaction.commandName === "grav") {
-      return reply({
+      return interaction.reply({
         content: calculateGravity().toString() + "\nFz = (G * M) / r²",
       });
     }
