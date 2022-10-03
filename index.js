@@ -1,6 +1,6 @@
 import { verifyKeyMiddleware } from "discord-interactions";
 import express from "express";
-import { InteractionResponseType } from "discord-api-types/v10";
+import { ChannelType, InteractionResponseType } from "discord-api-types/v10";
 import path, { dirname } from "path";
 import { CommandInteraction, Client } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
@@ -11,25 +11,24 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
 
-const client = new Client(app);
+const client = new Client(app, {
+  clientPublicKey:
+    "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a",
+  route: "/inter",
+});
 
 app.get("/", (req, res) =>
   res.sendFile("index.html", { root: path.join(__dirname, "Public") })
 );
-app.post(
-  "/inter",
-  verifyKeyMiddleware(
-    "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
-  ),
-  async (req, res) => {
-    const interaction = new CommandInteraction(res, req.body, client);
-    if (interaction.commandName === "grav") {
-      return interaction.reply({
-        content: calculateGravity().toString() + "\nFz = (G * M) / r²",
-      });
-    }
+
+client.on("interactionCreate", async (interaction) => {
+  if (!interaction.isCommand()) return;
+  if (interaction.commandName === "grav") {
+    await interaction.reply({
+      content: calculateGravity().toString() + "\nFz = (G * M) / r²",
+    });
   }
-);
+});
 
 function calculateGravity(
   r = 6.4e6, //6,4 * 10⁶
