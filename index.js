@@ -1,8 +1,6 @@
-import { verifyKeyMiddleware } from "discord-interactions";
 import express from "express";
-import { ChannelType, InteractionResponseType } from "discord-api-types/v10";
 import path, { dirname } from "path";
-import { CommandInteraction, Client } from "kooterdiscordstructures";
+import { Client } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 
