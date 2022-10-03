@@ -22,7 +22,7 @@ html {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   position: absolute;
-  top: 55%;
+  top: 40%;
   font-weight: 600;
   font-size: 50px;
   display: flex;
@@ -31,7 +31,7 @@ html {
 
 .container .powered {
   position: absolute;
-  top: 70%;
+  top: 55%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -47,7 +47,7 @@ html {
 
 .built {
   position: absolute;
-  top: 80%;
+  top: 62%;
   width: 50px;
   height: 50px;
   left: 50%;
@@ -67,7 +67,68 @@ html {
   font-weight: 300;
 }
 
-.built .rightside span {
+.built .rightside span,
+.connection .rightside span,
+.typings .rightside span {
   font-family: "Inter";
   font-weight: 500;
+}
+
+.connection {
+  position: absolute;
+  top: 71%;
+  display: inline;
+  left: 50%;
+  transform: translateX(-280%);
+}
+
+.connection img {
+  height: 60px;
+  width: 60px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-right: 1px solid #5e5e5e;
+  float: left;
+}
+
+.connection .rightside {
+  padding: 20px;
+  position: absolute;
+  background-color: black;
+  color: white;
+  width: max-content;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  left: 61px;
+}
+
+.typings {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-330%);
+}
+
+.typings img {
+  width: 60px;
+  height: 60px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-right: 1px solid #5e5e5e;
+  float: left;
+}
+
+.typings .rightside {
+  position: absolute;
+  width: max-content;
+  background-color: black;
+  color: white;
+  left: 61px;
+  padding: 20px;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
