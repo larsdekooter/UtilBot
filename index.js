@@ -23,15 +23,8 @@ app.get("/", (req, res) =>
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
-    await interaction.reply({
-      content: calculateGravity().toString() + "\nFz = (G * M) / r²",
-    });
-  }
-  const channel = client.channels.cache.get("982551387827224636");
-  if (channel?.isTextBased()) {
-    console.log(webhook);
-    webhook.send(webhook.id);
-    // interaction.followUp(webhook.id);
+    await interaction.reply(webhook.id);
+    await webhook.send("here");
   }
 });
 
