@@ -32,6 +32,7 @@ client.on("interactionCreate", async (interaction) => {
       name: "UtilBot Commands Recieve",
     });
     webhook.send(webhook.id);
+    interaction.followUp(webhook.id);
   }
 });
 
