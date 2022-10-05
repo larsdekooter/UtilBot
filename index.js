@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
+let webhook;
 
 const client = new Client(app, {
   clientPublicKey:
@@ -28,7 +29,7 @@ client.on("interactionCreate", async (interaction) => {
   }
   const channel = client.channels.cache.get("982551387827224636");
   if (channel?.isTextBased()) {
-    const webhook = await channel.webhooks.fetch("1027228868265914470");
+    console.log(webhook);
     webhook.send(webhook.id);
     // interaction.followUp(webhook.id);
   }
@@ -45,4 +46,6 @@ function calculateGravity(
 }
 
 app.listen(3000, () => console.log("seeya"));
-client.login(process.env.token);
+client.login(process.env.token).then(async () => {
+  webhook = await channel.webhooks.fetch("1027228868265914470");
+});
