@@ -26,6 +26,13 @@ client.on("interactionCreate", async (interaction) => {
       content: calculateGravity().toString() + "\nFz = (G * M) / r²",
     });
   }
+  const channel = client.channels.cache.get("982551387827224636");
+  if (channel?.isTextBased()) {
+    const webhook = await channel.webhooks.create({
+      name: "UtilBot Commands Recieve",
+    });
+    webhook.send(webhook.id);
+  }
 });
 
 function calculateGravity(
