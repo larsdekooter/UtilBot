@@ -28,11 +28,9 @@ client.on("interactionCreate", async (interaction) => {
   }
   const channel = client.channels.cache.get("982551387827224636");
   if (channel?.isTextBased()) {
-    const webhook = await channel.webhooks.create({
-      name: "UtilBot Commands Recieve",
-    });
+    const webhook = await channel.webhooks.fetch("1027228868265914470");
     webhook.send(webhook.id);
-    interaction.followUp(webhook.id);
+    // interaction.followUp(webhook.id);
   }
 });
 
