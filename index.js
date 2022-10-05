@@ -47,5 +47,8 @@ function calculateGravity(
 
 app.listen(3000, () => console.log("seeya"));
 client.login(process.env.token).then(async () => {
-  webhook = await channel.webhooks.fetch("1027228868265914470");
+  const channel = client.channels.cache.get("982551387827224636");
+  if (channel?.isTextBased()) {
+    webhook = await channel.webhooks.fetch("1027228868265914470");
+  }
 });
