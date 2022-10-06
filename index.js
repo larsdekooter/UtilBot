@@ -62,9 +62,8 @@ client.on("ready", async () => {
       await client.rest.get(Routes.webhook("1027229480340693084")),
       client
     );
+  console.log(client.isRatelimited);
 });
-
-client.on("debug", console.log);
 
 app.listen(3000, () => console.log("seeya"));
 client.login(process.env.token);
