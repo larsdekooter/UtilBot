@@ -40,11 +40,9 @@ client.on("interactionCreate", async (interaction) => {
       );
   }
   webhook.send(
-    `Recieved an interaction of type ${InteractionType[interaction.type]} in ${
-      interaction.channel?.inGuild()
-        ? `#${interaction.channel.name}`
-        : interaction.channel.id
-    } from ${interaction.user.tag}`
+    `Recieved an interaction of type ${
+      InteractionType[interaction.type]
+    } in ${interaction.channel?.toString()} from ${interaction.user.toString()}`
   );
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
