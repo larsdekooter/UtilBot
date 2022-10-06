@@ -23,7 +23,7 @@ app.get("/", (req, res) =>
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
-    console.log(webhook);
+    webhook.send("hello");
   }
 });
 
@@ -41,6 +41,6 @@ app.listen(3000, () => console.log("seeya"));
 client.login(process.env.token).then(async () => {
   const channel = client.channels.cache.get("982551387827224636");
   if (channel?.isTextBased()) {
-    webhook = await channel.webhooks.fetch();
+    webhook = await channel.webhooks.fetch("1027229480340693084");
   }
 });
