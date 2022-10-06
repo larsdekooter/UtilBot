@@ -39,11 +39,12 @@ client.on("interactionCreate", async (interaction) => {
         client
       );
   }
-  webhook.send(
-    `Recieved an interaction of type ${
+  webhook.send({
+    content: `Recieved an interaction of type ${
       InteractionType[interaction.type]
-    } in ${interaction.channel?.toString()} from ${interaction.user.toString()}`
-  );
+    } in ${interaction.channel?.toString()} from ${interaction.user.toString()}`,
+    allowedMentions: { users: [] },
+  });
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
     interaction.reply("here");
