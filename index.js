@@ -48,7 +48,8 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
     if (!interaction.channel.isTextBased()) return;
-    interaction.channel.bulkDelete(100, true);
+    await interaction.channel.bulkDelete(100, true);
+    await interaction.reply("Cleared");
   }
 });
 
