@@ -1,13 +1,17 @@
 import express from "express";
 import path, { dirname } from "path";
-import { Client } from "kooterdiscordstructures";
+import { Client, InteractionType, Webhook } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
+import { Webhook } from "kooterdiscordstructures/dist/lib/Webhook";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
+/**
+ * @type {Webhook}
+ */
 let webhook;
 
 const client = new Client(app, {
@@ -21,9 +25,15 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
+  webhook.send(
+    `Recieved an interaction of type ${InteractionType[interaction.type]} in ${
+      interaction.channel?.inGuild()
+        ? interaction.channel.name
+        : interaction.channel.id
+    } from ${interaction.user.tag}`
+  );
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
-    webhook.send("hello");
   }
 });
 
