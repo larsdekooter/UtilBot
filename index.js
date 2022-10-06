@@ -29,6 +29,7 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
+  console.log(interaction.channel.inGuild());
   webhook.send(
     `Recieved an interaction of type ${InteractionType[interaction.type]} in ${
       interaction.channel?.inGuild()
