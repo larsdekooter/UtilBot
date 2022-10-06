@@ -1,6 +1,11 @@
 import express from "express";
 import path, { dirname } from "path";
-import { Client, InteractionType, Webhook } from "kooterdiscordstructures";
+import {
+  Client,
+  InteractionType,
+  Routes,
+  Webhook,
+} from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 
@@ -24,7 +29,6 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
-  throw new Error(client.isReady);
   webhook.send(
     `Recieved an interaction of type ${InteractionType[interaction.type]} in ${
       interaction.channel?.inGuild()
@@ -41,7 +45,11 @@ client.on("ready", async () => {
   const channel = client.channels.cache.get("982551387827224636");
   if (channel?.isTextBased()) {
     webhook = await channel.webhooks.fetch("1027229480340693084");
-  }
+  } else
+    webhook = new Webhook(
+      await client.rest.get(Routes.webhook("1027229480340693084")),
+      client
+    );
 });
 
 function calculateGravity(
