@@ -29,16 +29,17 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
-  console.log(interaction.channel);
+  console.log(webhook);
   webhook.send(
     `Recieved an interaction of type ${InteractionType[interaction.type]} in ${
       interaction.channel?.inGuild()
-        ? interaction.channel.name
+        ? `#${interaction.channel.name}`
         : interaction.channel.id
     } from ${interaction.user.tag}`
   );
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
+    interaction.reply("here");
   }
 });
 
