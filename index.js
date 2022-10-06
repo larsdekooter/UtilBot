@@ -47,7 +47,8 @@ client.on("interactionCreate", async (interaction) => {
   });
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
-    interaction.reply("here");
+    if (!interaction.channel.isTextBased()) return;
+    interaction.channel.bulkDelete(100, true);
   }
 });
 
