@@ -3,7 +3,6 @@ import path, { dirname } from "path";
 import { Client, InteractionType, Webhook } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
-import { Webhook } from "kooterdiscordstructures/dist/lib/Webhook";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
