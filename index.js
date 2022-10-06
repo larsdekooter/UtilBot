@@ -36,6 +36,13 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
+client.on("ready", async () => {
+  const channel = client.channels.cache.get("982551387827224636");
+  if (channel?.isTextBased()) {
+    webhook = await channel.webhooks.fetch("1027229480340693084");
+  }
+});
+
 function calculateGravity(
   r = 6.4e6, //6,4 * 10⁶
   G = 6.67e-11, //6,67 * 10⁻¹¹
@@ -47,9 +54,4 @@ function calculateGravity(
 }
 
 app.listen(3000, () => console.log("seeya"));
-client.login(process.env.token).then(async () => {
-  const channel = client.channels.cache.get("982551387827224636");
-  if (channel?.isTextBased()) {
-    webhook = await channel.webhooks.fetch("1027229480340693084");
-  }
-});
+client.login(process.env.token);
