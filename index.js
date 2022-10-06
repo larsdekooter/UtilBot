@@ -29,22 +29,12 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
-  // if (!webhook) {
-  //   const channel = client.channels.cache.get("982551387827224636");
-  //   if (channel?.isTextBased()) {
-  //     webhook = await channel.webhooks.fetch("1027229480340693084");
-  //   } else
-  //     webhook = new Webhook(
-  //       await client.rest.get(Routes.webhook("1027229480340693084")),
-  //       client
-  //     );
-  // }
-  // webhook.send({
-  //   content: `Recieved an interaction of type ${
-  //     InteractionType[interaction.type]
-  //   } in ${interaction.channel?.toString()} from ${interaction.user.toString()}`,
-  //   allowedMentions: { users: [] },
-  // });
+  webhook.send({
+    content: `Recieved an interaction of type ${
+      InteractionType[interaction.type]
+    } in ${interaction.channel?.toString()} from ${interaction.user.toString()}`,
+    allowedMentions: { users: [] },
+  });
   if (!interaction.isCommand()) return;
   if (interaction.commandName === "grav") {
     if (!interaction.channel.isTextBased()) return;
