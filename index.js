@@ -64,15 +64,7 @@ client.on("ready", async () => {
     );
 });
 
-function calculateGravity(
-  r = 6.4e6, //6,4 * 10⁶
-  G = 6.67e-11, //6,67 * 10⁻¹¹
-  M = 6.0e24 //6,0 * 10²⁴
-) {
-  const { pow } = Math; // Get the pow function to use exponents (first parameter is the x (1), second is the y (²))
-  const Fz = (G * M) / pow(r, 2); // Fz === Fg = mg === G * (mM / r²) = g ==== G * (M / r²);
-  return Fz;
-}
+client.on("debug", console.log);
 
 app.listen(3000, () => console.log("seeya"));
 client.login(process.env.token);
