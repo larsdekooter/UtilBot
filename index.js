@@ -36,5 +36,7 @@ client.on("ready", async () => {
   console.log("Client is Ready");
 });
 
+client.rest.on("response", console.log);
+
 app.listen(3000, () => console.log("seeya"));
 client.login(process.env.token);
