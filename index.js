@@ -17,7 +17,6 @@ function parseHeader(header) {
   return header.join(";");
 }
 async function parseResponse(res) {
-  throw new Error(res.body);
   const header = parseHeader(res.headers["content-type"]);
   if (header?.startsWith("application/json")) {
     return res.body.json();
@@ -44,10 +43,10 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 client.on("ready", async () => {
-  console.log("Client is Ready");
+  throw new Error("Client is ready");
 });
 
-client.rest.on("response", (req, res) => (latestCode = parseResponse(res)));
+client.rest.on("response", (req, res) => (latestCode = res.body.json()));
 
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
