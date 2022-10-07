@@ -27,7 +27,7 @@ app.get("/", (req, res) =>
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
   if (interaction.commandName === "grav") {
-    await interaction.channel?.bulkDelete(100, true).catch(console.log);
+    // await interaction.channel?.bulkDelete(100, true).catch(console.log);
     await interaction.reply("Cleared");
   }
 });
