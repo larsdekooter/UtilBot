@@ -33,7 +33,7 @@ client.on("ready", async () => {
   console.log("Client is Ready");
 });
 
-client.rest.on("response", (req, res) => (latestCode = res.statusCode));
+client.rest.on("response", (req, res) => (latestCode = res.body.json()));
 
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
