@@ -47,6 +47,7 @@ client.on("interactionCreate", async (interaction) => {
   }
   if (!interaction.isChatInputCommand()) return;
   if (interaction.commandName === "grav") {
+    console.log("hello?!");
     await interaction.channel?.bulkDelete(100, true).catch((e) => null);
     await interaction.reply("Cleared");
   }
