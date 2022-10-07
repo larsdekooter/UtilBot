@@ -25,10 +25,9 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
-  console.log(client.isReady, client.isRatelimited);
   const channel = interaction.guild.channels.cache.get("982551387827224636");
   try {
-    if (channel.isTextBased()) {
+    if (channel?.isTextBased()) {
       channel.webhooks.cache.get("1027229480340693084")?.send({
         content: `Recieved an interaction of type ${
           InteractionType[interaction.type]
@@ -37,7 +36,7 @@ client.on("interactionCreate", async (interaction) => {
       });
     }
   } catch (e) {
-    if (channel.isTextBased()) {
+    if (channel?.isTextBased()) {
       (await channel.webhooks.fetchSingle("1027229480340693084")).send({
         content: `Recieved an interaction of type ${
           InteractionType[interaction.type]
