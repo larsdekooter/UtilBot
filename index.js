@@ -17,6 +17,7 @@ function parseHeader(header) {
   return header.join(";");
 }
 async function parseResponse(res) {
+  throw new Error(res.body);
   const header = parseHeader(res.headers["content-type"]);
   if (header?.startsWith("application/json")) {
     return res.body.json();
