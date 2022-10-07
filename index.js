@@ -9,21 +9,6 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
 
-let latestCode;
-function parseHeader(header) {
-  if (header === void 0 || typeof header === "string") {
-    return header;
-  }
-  return header.join(";");
-}
-async function parseResponse(res) {
-  const header = parseHeader(res.headers["content-type"]);
-  if (header?.startsWith("application/json")) {
-    return res.body.json();
-  }
-  return res.body.arrayBuffer();
-}
-
 const client = new Client(app, {
   clientPublicKey:
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a",
@@ -35,7 +20,7 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
-  throw new Error(client.latestCode, client.latestResponseStatusCode);
+  throw new Error(`${client.latestCode}, ${client.latestResponseStatusCode}`);
   if (!interaction.isChatInputCommand()) return;
   if (!client.isReady) return interaction.reply("Bro I am not readyf");
   if (interaction.commandName === "grav") {
