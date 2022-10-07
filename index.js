@@ -25,42 +25,15 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
-  const channel = interaction.guild.channels.cache.get("982551387827224636");
-  try {
-    if (channel?.isTextBased()) {
-      channel.webhooks.cache.get("1027229480340693084")?.send({
-        content: `Recieved an interaction of type ${
-          InteractionType[interaction.type]
-        } in ${interaction.channel.name} from ${interaction.user}`,
-        allowedMentions: { users: [] },
-      });
-    }
-  } catch (e) {
-    if (channel?.isTextBased()) {
-      (await channel.webhooks.fetchSingle("1027229480340693084")).send({
-        content: `Recieved an interaction of type ${
-          InteractionType[interaction.type]
-        } in ${interaction.channel.name} from ${interaction.user}`,
-        allowedMentions: { users: [] },
-      });
-    }
-  }
   if (!interaction.isChatInputCommand()) return;
   if (interaction.commandName === "grav") {
-    await interaction.channel?.bulkDelete(100, true).catch((e) => null);
+    await interaction.channel?.bulkDelete(100, true).catch(console.log);
     await interaction.reply("Cleared");
   }
 });
 
 client.on("ready", async () => {
-  const channel = client.channels.cache.get("982551387827224636");
-  if (channel?.isTextBased()) {
-    await channel.webhooks.fetchSingle("1027229480340693084");
-  } else
-    new Webhook(
-      await client.rest.get(Routes.webhook("1027229480340693084")),
-      client
-    );
+  console.log("Client is Ready");
 });
 
 app.listen(3000, () => console.log("seeya"));
