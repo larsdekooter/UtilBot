@@ -35,9 +35,9 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
-  throw new Error(client.isReady);
   console.log(latestCode);
   if (!interaction.isChatInputCommand()) return;
+  if (!client.isReady) return interaction.reply("Bro I am not readyf");
   if (interaction.commandName === "grav") {
     await interaction.reply("Cleared");
   }
