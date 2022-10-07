@@ -1,11 +1,6 @@
 import express from "express";
 import path, { dirname } from "path";
-import {
-  Client,
-  InteractionType,
-  Routes,
-  Webhook,
-} from "kooterdiscordstructures";
+import { Client } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 
@@ -13,6 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
+
+let latestCode;
 
 const client = new Client(app, {
   clientPublicKey:
@@ -25,9 +22,9 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
+  console.log(latestCode);
   if (!interaction.isChatInputCommand()) return;
   if (interaction.commandName === "grav") {
-    // await interaction.channel?.bulkDelete(100, true).catch(console.log);
     await interaction.reply("Cleared");
   }
 });
@@ -36,7 +33,7 @@ client.on("ready", async () => {
   console.log("Client is Ready");
 });
 
-client.rest.on("response", (req, res) => console.log(res.statusCode));
+client.rest.on("response", (req, res) => (latestCode = res.statusCode));
 
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
