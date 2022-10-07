@@ -13,10 +13,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
-/**
- * @type {Webhook}
- */
-let webhook;
 
 const client = new Client(app, {
   clientPublicKey:
@@ -29,16 +25,29 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
-  webhook.send({
-    content: `Recieved an interaction of type ${
-      InteractionType[interaction.type]
-    } in ${interaction.channel?.toString()} from ${interaction.user.toString()}`,
-    allowedMentions: { users: [] },
-  });
-  if (!interaction.isCommand()) return;
+  const channel = interaction.guild.channels.cache.get("982551387827224636");
+  try {
+    if (channel.isTextBased()) {
+      channel.webhooks.cache.get("1027229480340693084")?.send({
+        content: `Recieved an interaction of type ${
+          InteractionType[interaction.type]
+        } in ${interaction.channel.name} from ${interaction.user}`,
+        allowedMentions: { users: [] },
+      });
+    }
+  } catch (e) {
+    if (channel.isTextBased()) {
+      (await channel.webhooks.fetchSingle("1027229480340693084")).send({
+        content: `Recieved an interaction of type ${
+          InteractionType[interaction.type]
+        } in ${interaction.channel.name} from ${interaction.user}`,
+        allowedMentions: { users: [] },
+      });
+    }
+  }
+  if (!interaction.isChatInputCommand()) return;
   if (interaction.commandName === "grav") {
-    if (!interaction.channel.isTextBased()) return;
-    // await interaction.channel.bulkDelete(100, true);
+    await interaction.channel?.bulkDelete(100, true).catch((e) => null);
     await interaction.reply("Cleared");
   }
 });
@@ -46,13 +55,12 @@ client.on("interactionCreate", async (interaction) => {
 client.on("ready", async () => {
   const channel = client.channels.cache.get("982551387827224636");
   if (channel?.isTextBased()) {
-    webhook = await channel.webhooks.fetch("1027229480340693084");
+    await channel.webhooks.fetchSingle("1027229480340693084");
   } else
-    webhook = new Webhook(
+    new Webhook(
       await client.rest.get(Routes.webhook("1027229480340693084")),
       client
     );
-  console.log(client.isRatelimited);
 });
 
 app.listen(3000, () => console.log("seeya"));
