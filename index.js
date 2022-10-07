@@ -45,7 +45,5 @@ client.on("interactionCreate", async (interaction) => {
 
 client.on("ready", async () => {});
 
-client.rest.on("response", (req, res) => (latestCode = res.body.json()));
-
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
