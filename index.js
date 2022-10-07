@@ -36,7 +36,7 @@ client.on("ready", async () => {
   console.log("Client is Ready");
 });
 
-client.rest.on("response", (req, res) => console.log(res.headers.age));
+client.rest.on("response", (req, res) => console.log(res.headers));
 
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
