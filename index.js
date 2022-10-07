@@ -35,6 +35,7 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
+  throw new Error(client.isReady);
   console.log(latestCode);
   if (!interaction.isChatInputCommand()) return;
   if (interaction.commandName === "grav") {
@@ -42,9 +43,7 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-client.on("ready", async () => {
-  throw new Error("Client is ready");
-});
+client.on("ready", async () => {});
 
 client.rest.on("response", (req, res) => (latestCode = res.body.json()));
 
