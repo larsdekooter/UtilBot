@@ -29,7 +29,9 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-client.rest.on("response", (req, res) => (route = req.route));
+client.rest.on("response", (req, res) => {
+  throw new Error("Response");
+});
 
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
