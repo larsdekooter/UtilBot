@@ -25,6 +25,7 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
+  console.log(client.isReady, client.isRatelimited);
   const channel = interaction.guild.channels.cache.get("982551387827224636");
   try {
     if (channel.isTextBased()) {
@@ -47,7 +48,6 @@ client.on("interactionCreate", async (interaction) => {
   }
   if (!interaction.isChatInputCommand()) return;
   if (interaction.commandName === "grav") {
-    console.log("hello?!");
     await interaction.channel?.bulkDelete(100, true).catch((e) => null);
     await interaction.reply("Cleared");
   }
