@@ -10,6 +10,19 @@ const app = express();
 app.use(express.static("Public"));
 
 let latestCode;
+function parseHeader(header) {
+  if (header === void 0 || typeof header === "string") {
+    return header;
+  }
+  return header.join(";");
+}
+async function parseResponse(res) {
+  const header = parseHeader(res.headers["content-type"]);
+  if (header?.startsWith("application/json")) {
+    return res.body.json();
+  }
+  return res.body.arrayBuffer();
+}
 
 const client = new Client(app, {
   clientPublicKey:
@@ -33,7 +46,7 @@ client.on("ready", async () => {
   console.log("Client is Ready");
 });
 
-client.rest.on("response", (req, res) => (latestCode = res.body.json()));
+client.rest.on("response", (req, res) => (latestCode = parseResponse(res)));
 
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
