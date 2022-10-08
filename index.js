@@ -1,6 +1,7 @@
 import express from "express";
 import path, { dirname } from "path";
 import {
+  ChatInputCommandInteraction,
   Client,
   InteractionResponseType,
   verifyKeyMiddleware,
@@ -25,10 +26,11 @@ app.post(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
   ),
   async (req, res) => {
+    const interaction = new ChatInputCommandInteraction(res, req.body, client);
     await client.channels.fetch(req.body.channel_id);
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: { content: "fakka" },
+      data: { content: (Date.now() - interaction.createdTimestamp).toString() },
     });
   }
 );
