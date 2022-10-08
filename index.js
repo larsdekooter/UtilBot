@@ -96,8 +96,10 @@ app.get("/", (req, res) =>
     });
   }
 );*/
-client.on("interactionCreate", (interaction) =>
-  console.log("May i slap you tf out a here")
-);
+client.on("interactionCreate", async (interaction) => {
+  if (interaction.isChatInputCommand()) {
+    await interaction.reply({ content: "kanker " });
+  }
+});
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
