@@ -18,6 +18,7 @@ import {
 } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -84,7 +85,11 @@ app.post(
     }
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: { content: (Date.now() - req.body.createdTimestamp).toString() },
+      data: {
+        content: (
+          Date.now() - DiscordSnowflake.timestampFrom(req.body.id)
+        ).toString(),
+      },
     });
   }
 );
