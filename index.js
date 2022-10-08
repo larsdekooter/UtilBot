@@ -37,6 +37,7 @@ app.post(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
   ),
   async (req, res) => {
+    let interaction;
     switch (req.body.type) {
       case InteractionType.ApplicationCommand: {
         if (req.body.data.type === ApplicationCommandType.ChatInput) {
