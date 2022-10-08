@@ -25,7 +25,7 @@ app.post(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
   ),
   async (req, res) => {
-    await client.channels.fetch(res.body.channel_id);
+    await client.channels.fetch(req.body.channel_id);
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: { content: "fakka" },
@@ -34,3 +34,4 @@ app.post(
 );
 
 app.listen(3000, () => console.log("seeya"));
+client.loginWithoutFetching(process.env.token);
