@@ -84,6 +84,7 @@ app.post(
       interaction.guild = await client.guilds.fetch(interaction.guildId);
       interaction.member = new Member(req.body.member, interaction.guild);
     }
+    console.log("May i excuse you");
     interaction.reply({
       content: (
         Date.now() - DiscordSnowflake.timestampFrom(req.body.id)
