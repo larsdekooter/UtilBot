@@ -13,6 +13,8 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
 
+const client = new Client(app);
+
 app.get("/", (req, res) =>
   res.sendFile("index.html", { root: path.join(__dirname, "Public") })
 );
@@ -22,7 +24,8 @@ app.post(
   verifyKeyMiddleware(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
   ),
-  (req, res) => {
+  async (req, res) => {
+    await client.channels.fetch(res.body.channel_id);
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: { content: "fakka" },
