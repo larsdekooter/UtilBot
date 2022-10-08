@@ -25,13 +25,17 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.static("Public"));
 
-const client = new Client(app);
+const client = new Client(app, {
+  clientPublicKey:
+    "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a",
+  route: "/inter",
+});
 
 app.get("/", (req, res) =>
   res.sendFile("index.html", { root: path.join(__dirname, "Public") })
 );
 
-app.post(
+/*app.post(
   "/inter",
   verifyKeyMiddleware(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
@@ -91,7 +95,9 @@ app.post(
       ).toString(),
     });
   }
+);*/
+client.on("interactionCreate", (interaction) =>
+  console.log("May i slap you tf out a here")
 );
-
 app.listen(3000, () => console.log("seeya"));
 client.loginWithoutFetching(process.env.token);
