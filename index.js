@@ -84,13 +84,10 @@ app.post(
       interaction.guild = await client.guilds.fetch(interaction.guildId);
       interaction.member = new Member(req.body.member, interaction.guild);
     }
-    res.send({
-      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        content: (
-          Date.now() - DiscordSnowflake.timestampFrom(req.body.id)
-        ).toString(),
-      },
+    interaction.reply({
+      content: (
+        Date.now() - DiscordSnowflake.timestampFrom(req.body.id)
+      ).toString(),
     });
   }
 );
