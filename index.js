@@ -45,7 +45,7 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.channel.bulkDelete(100, true);
       await interaction
         .reply({ content: "clearage succesfull", fetchReply: true })
-        .then((reply) => reply.delete());
+        .then(async (reply) => await reply.delete());
     }
   }
 });
