@@ -82,7 +82,7 @@ app.post(
       req.body.guild = await client.guilds.fetch(req.body.guild_id);
       req.body.member = new Member(req.body.member, req.body.guild);
     }
-    req.send({
+    res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: { content: (Date.now() - req.body.createdTimestamp).toString() },
     });
