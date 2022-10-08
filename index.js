@@ -81,7 +81,7 @@ app.post(
     }
     await client.channels.fetch(interaction.channelId);
     if (interaction.guildId) {
-      interaction.guild = await client.guilds.fetch(interaction.guild_id);
+      interaction.guild = await client.guilds.fetch(interaction.guildId);
       interaction.member = new Member(req.body.member, interaction.guild);
     }
     res.send({
