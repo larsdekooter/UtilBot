@@ -4,6 +4,7 @@ import {
   ChatInputCommandInteraction,
   Client,
   InteractionResponseType,
+  Member,
   verifyKeyMiddleware,
 } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
@@ -27,7 +28,11 @@ app.post(
   ),
   async (req, res) => {
     const interaction = new ChatInputCommandInteraction(res, req.body, client);
-    await client.channels.fetch(req.body.channel_id);
+    await client.channels.fetch(interaction.channelId);
+    if (interaction.guildId) {
+      interaction.guild = await client.guilds.fetch(interaction.guildId);
+      interaction.member = new Member(interaction._member, interaction.guild);
+    }
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: { content: (Date.now() - interaction.createdTimestamp).toString() },
