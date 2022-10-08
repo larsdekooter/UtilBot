@@ -8,7 +8,14 @@ rest
   .put(
     Routes.applicationGuildCommands("986610393843642388", "950680035411501056"),
     {
-      body: [new SlashCommandBuilder().setName("grav").setDescription("grav")],
+      body: [
+        new SlashCommandBuilder()
+          .setName("response-time")
+          .setDescription("Response Time"),
+        new SlashCommandBuilder()
+          .setName("clear")
+          .setDescription("clears the channel"),
+      ],
     }
   )
   .then(console.log("hello"));
