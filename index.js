@@ -37,6 +37,7 @@ app.post(
     "d8c09e3ffb1c254322b098b64801f519d5401b07feccc272954739fb81c6f49a"
   ),
   async (req, res) => {
+    console.log("May i excuse you");
     let interaction;
     switch (req.body.type) {
       case InteractionType.ApplicationCommand: {
@@ -84,7 +85,6 @@ app.post(
       interaction.guild = await client.guilds.fetch(interaction.guildId);
       interaction.member = new Member(req.body.member, interaction.guild);
     }
-    console.log("May i excuse you");
     interaction.reply({
       content: (
         Date.now() - DiscordSnowflake.timestampFrom(req.body.id)
