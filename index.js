@@ -79,10 +79,10 @@ app.post(
         break;
       }
     }
-    await client.channels.fetch(req.body.channel_id);
-    if (req.body.guild_id) {
-      req.body.guild = await client.guilds.fetch(req.body.guild_id);
-      req.body.member = new Member(req.body.member, req.body.guild);
+    await client.channels.fetch(interaction.channelId);
+    if (interaction.guildId) {
+      interaction.guild = await client.guilds.fetch(interaction.guild_id);
+      interaction.member = new Member(req.body.member, interaction.guild);
     }
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
