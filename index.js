@@ -1,24 +1,8 @@
 import express from "express";
 import path, { dirname } from "path";
-import {
-  ApplicationCommandType,
-  AutocompleteInteraction,
-  ButtonInteraction,
-  ChatInputCommandInteraction,
-  Client,
-  Interaction,
-  InteractionResponseType,
-  InteractionType,
-  Member,
-  MessageContextMenuCommandInteraction,
-  ModalSubmitInteraction,
-  SelectMenuInteraction,
-  UserContextMenuCommandInteraction,
-  verifyKeyMiddleware,
-} from "kooterdiscordstructures";
+import { Client, InteractionType } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -36,6 +20,16 @@ app.get("/", (req, res) =>
 );
 
 client.on("interactionCreate", async (interaction) => {
+  const channel = client.channels.cache.get("982551387827224636");
+  if (!channel.isTextBased()) return;
+  channel.webhooks.cache
+    .get("1027229480340693084")
+    ?.send({
+      content: `Recieved an interaction of type ${
+        InteractionType[interaction.type]
+      } in ${interaction.channel} from ${interaction.user}`,
+      allowedMentions: { users: [] },
+    });
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "response-time") {
       await interaction.reply(
