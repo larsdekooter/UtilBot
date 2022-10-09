@@ -22,12 +22,14 @@ app.get("/", (req, res) =>
 client.on("interactionCreate", async (interaction) => {
   const channel = client.channels.cache.get("982551387827224636");
   if (!channel.isTextBased()) return;
-  (await channel.webhooks.fetchSingle("1027229480340693084")).send({
-    content: `Recieved an interaction of type ${
-      InteractionType[interaction.type]
-    } in ${interaction.channel} from ${interaction.user}`,
-    allowedMentions: { users: [] },
-  });
+  if (!interaction.isAutocomplete()) {
+    (await channel.webhooks.fetchSingle("1027229480340693084")).send({
+      content: `Recieved an interaction of type ${
+        InteractionType[interaction.type]
+      } in ${interaction.channel} from ${interaction.user}`,
+      allowedMentions: { users: [] },
+    });
+  }
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "response-time") {
       await interaction.reply(
