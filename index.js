@@ -65,6 +65,8 @@ client.on("interactionCreate", async (interaction) => {
           ],
         });
       } catch (error) {
+        if (e.message === "Error: Received one or more errors")
+          console.error(error);
         await interaction.reply({
           ephemeral: true,
           embeds: [
