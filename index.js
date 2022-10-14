@@ -48,21 +48,37 @@ client.on("interactionCreate", async (interaction) => {
         let code = await eval(input);
         code = inspect(code);
         await interaction.reply({
-          // ephemeral: true,
+          ephemeral: true,
           embeds: [
             new EmbedBuilder().setTitle("eval").addFields(
               {
                 name: "**Input**",
-                value: codeBlock(input),
+                value: codeBlock("js", input),
               },
               {
                 name: "**Output**",
-                value: codeBlock(code),
+                value: codeBlock("js", code),
               }
             ),
           ],
         });
-      } catch (error) {}
+      } catch (error) {
+        await interaction.reply({
+          ephemeral: true,
+          embeds: [
+            new EmbedBuilder().setTitle("eval").addFields(
+              {
+                name: "**Input**",
+                value: codeBlock("js", input),
+              },
+              {
+                name: "**Error**",
+                value: codeBlock("js", error),
+              }
+            ),
+          ],
+        });
+      }
     }
   }
 });
