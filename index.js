@@ -46,25 +46,25 @@ client.on("interactionCreate", async (interaction) => {
       });
     } else if (interaction.commandName === "eval") {
       const input = interaction.options.getString("input");
-      // try {
-      let code = await eval(input);
-      code = inspect(code);
-      await interaction.reply({
-        ephemeral: true,
-        embeds: [
-          new EmbedBuilder().setTitle("eval").addFields(
-            {
-              name: "**Input**",
-              value: codeBlock("js", input),
-            },
-            {
-              name: "**Output**",
-              value: codeBlock("js", code),
-            }
-          ),
-        ],
-      });
-      /*} catch (error) {
+      try {
+        let code = await eval(input);
+        code = inspect(code);
+        await interaction.reply({
+          ephemeral: true,
+          embeds: [
+            new EmbedBuilder().setTitle("eval").addFields(
+              {
+                name: "**Input**",
+                value: codeBlock("js", input),
+              },
+              {
+                name: "**Output**",
+                value: codeBlock("js", code),
+              }
+            ),
+          ],
+        });
+      } catch (error) {
         if (error.message === "Error: Received one or more errors")
           console.error(error);
         await interaction.reply({
@@ -82,7 +82,7 @@ client.on("interactionCreate", async (interaction) => {
             ),
           ],
         });
-      }*/
+      }
     }
   }
 });
