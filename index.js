@@ -45,7 +45,7 @@ client.on("interactionCreate", async (interaction) => {
     } else if (interaction.commandName === "eval") {
       const input = interaction.options.getString("input");
       try {
-        let code = eval(input);
+        let code = await eval(input);
         code = inspect(code);
         await interaction.reply({
           ephemeral: true,
