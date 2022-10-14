@@ -34,14 +34,16 @@ client.on("interactionCreate", async (interaction) => {
   }
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "response-time") {
-      await interaction.reply(
-        (Date.now() - interaction.createdTimestamp).toString()
-      );
+      await interaction.reply({
+        content: (Date.now() - interaction.createdTimestamp).toString(),
+        ephemeral: true,
+      });
     } else if (interaction.commandName === "clear") {
       await interaction.channel.bulkDelete(100, true);
-      await interaction
-        .reply({ content: "clearage succesfull", fetchReply: true })
-        .then(async (reply) => await reply.delete());
+      await interaction.reply({
+        content: "clearage succesfull",
+        ephemeral: true,
+      });
     } else if (interaction.commandName === "eval") {
       const input = interaction.options.getString("input");
       try {
