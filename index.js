@@ -48,7 +48,7 @@ client.on("interactionCreate", async (interaction) => {
         let code = await eval(input);
         code = inspect(code);
         await interaction.reply({
-          ephemeral: true,
+          // ephemeral: true,
           embeds: [
             new EmbedBuilder().setTitle("eval").addFields(
               {
