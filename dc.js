@@ -15,6 +15,13 @@ rest
         new SlashCommandBuilder()
           .setName("clear")
           .setDescription("clears the channel"),
+
+        new SlashCommandBuilder()
+          .setName("eval")
+          .setDescription("eval")
+          .addStringOption((o) =>
+            o.setName("input").setDescription("input").setRequired(true)
+          ),
       ],
     }
   )

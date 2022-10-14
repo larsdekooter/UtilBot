@@ -3,6 +3,8 @@ import path, { dirname } from "path";
 import { Client, InteractionType } from "kooterdiscordstructures";
 import { fileURLToPath } from "url";
 import "dotenv/config";
+import { inspect } from "util";
+import { EmbedBuilder, inlineCode, codeBlock } from "@discordjs/builders";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,6 +42,27 @@ client.on("interactionCreate", async (interaction) => {
       await interaction
         .reply({ content: "clearage succesfull", fetchReply: true })
         .then(async (reply) => await reply.delete());
+    } else if (interaction.commandName === "eval") {
+      const input = interaction.options.getString("input");
+      try {
+        let code = eval(input);
+        code = inspect(code);
+        await interaction.reply({
+          ephemeral: true,
+          embeds: [
+            new EmbedBuilder().setTitle("eval").addFields(
+              {
+                name: "**Input**",
+                value: codeBlock(input),
+              },
+              {
+                name: "**Output**",
+                value: codeBlock(code),
+              }
+            ),
+          ],
+        });
+      } catch (error) {}
     }
   }
 });
