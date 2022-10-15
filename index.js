@@ -118,10 +118,12 @@ client.on("interactionCreate", async (interaction) => {
   }
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "response-time") {
-      await interaction.reply({
+      /*await interaction.reply({
         content: (Date.now() - interaction.createdTimestamp).toString(),
         ephemeral: true,
-      });
+      });*/
+      await interaction.deferReply();
+      await interaction.editReply({ content: "test" });
     } else if (interaction.commandName === "clear") {
       await interaction.channel.bulkDelete(100, true);
       await interaction.reply({
