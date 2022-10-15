@@ -15,12 +15,54 @@ rest
         new SlashCommandBuilder()
           .setName("clear")
           .setDescription("clears the channel"),
-
         new SlashCommandBuilder()
           .setName("eval")
           .setDescription("eval")
           .addStringOption((o) =>
             o.setName("input").setDescription("input").setRequired(true)
+          ),
+        new SlashCommandBuilder()
+          .setName("bitfield")
+          .setDescription("Bietfields")
+          .addSubcommand((o) =>
+            o
+              .setName("permissions")
+              .setDescription("Destructure Permissions Bitfield")
+              .addStringOption((x) =>
+                x
+                  .setName("bitfield")
+                  .setDescription("The bitfield to destructure")
+                  .setRequired(true)
+              )
+          )
+          .addSubcommand((o) =>
+            o
+              .setName("intents")
+              .setDescription("Destructure Intents Bitfield")
+              .addStringOption((x) =>
+                x
+                  .setName("bitfield")
+                  .setDescription("The bitfield to destructure")
+                  .setRequired(true)
+              )
+          ),
+        new SlashCommandBuilder()
+          .setName("snowflake")
+          .setDescription("Snowflake")
+          .addStringOption((o) =>
+            o
+              .setName("snowflake")
+              .setDescription("The snowflake to inspect")
+              .setRequired(true)
+          ),
+        new SlashCommandBuilder()
+          .setName("userinfo")
+          .setDescription("User")
+          .addUserOption((o) =>
+            o
+              .setName("user")
+              .setDescription("The User to inspect")
+              .setRequired(true)
           ),
       ],
     }
