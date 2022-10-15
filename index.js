@@ -218,8 +218,7 @@ client.on("interactionCreate", async (interaction) => {
     } else if (interaction.commandName === "userinfo") {
       await interaction.deferReply({ ephemeral: true });
       const user = await client.users.fetch(
-        interaction.options.getUser("user")?.id,
-        true
+        interaction.options.getUser("user")?.id
       );
       const member = await interaction.guild.members.fetch(
         interaction.options.getMember("user")?.id
