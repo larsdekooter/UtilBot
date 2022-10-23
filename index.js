@@ -243,6 +243,12 @@ client.on("interactionCreate", async (interaction) => {
         ],
         ephemeral: true,
       });
+    } else if (interaction.commandName === "ban") {
+      const user = interaction.options.getUser("user");
+      await interaction.guild.bans.create(user.id, { deleteMessageDays: 7 });
+      return await interaction.reply(`Banned ${user}`);
+    } else if (interaction.commandName === "ping") {
+      await interaction.reply("Pong!");
     }
   }
 });

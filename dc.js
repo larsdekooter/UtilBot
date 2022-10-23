@@ -64,6 +64,18 @@ rest
               .setDescription("The User to inspect")
               .setRequired(true)
           ),
+        new SlashCommandBuilder()
+          .setName("ban")
+          .setDescription("Ban a user")
+          .addStringOption((o) =>
+            o
+              .setName("user")
+              .setDescription("The user to ban")
+              .setRequired(true)
+          ),
+        new SlashCommandBuilder()
+          .setName("ping")
+          .setDescription("Replies with Pong!"),
       ],
     }
   )
