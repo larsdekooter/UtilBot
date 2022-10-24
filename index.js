@@ -267,7 +267,7 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply("ping");
       const file = new AttachmentBuilder(
         "./Public/KooterDiscordStructuresLogo.png",
-        { name: "test.png" }
+        { name: "test" }
       );
       interaction.followUp({
         files: [file],
