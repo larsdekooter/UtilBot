@@ -1,6 +1,7 @@
 import express from "express";
 import path, { dirname } from "path";
 import {
+  AttachmentBuilder,
   BitField,
   Client,
   GatewayIntentBits,
@@ -264,7 +265,14 @@ client.on("interactionCreate", async (interaction) => {
       interaction.end();
     } else if (interaction.commandName === "ping") {
       await interaction.reply("Pong!");
-      await interaction.followUp("Pong again!");
+      const file = new AttachmentBuilder(
+        "./Public/KooterDiscordStructuresLogo.png",
+        { name: "test.png" }
+      );
+      interaction.channel.send({
+        files: [file],
+        embeds: [new EmbedBuilder().setImage("attachment://test.png")],
+      });
       return interaction.end();
     }
   }
