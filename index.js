@@ -125,18 +125,18 @@ client.on("interactionCreate", async (interaction) => {
   }
   if (interaction.isChatInputCommand()) {
     if (interaction.commandName === "response-time") {
-      /*await interaction.reply({
-        content: (Date.now() - interaction.createdTimestamp).toString(),
-        ephemeral: true,
-      });*/
-      await interaction.deferReply();
-      await interaction.editReply({ content: "test" });
+      // /*await interaction.reply({
+      //   content: (Date.now() - interaction.createdTimestamp).toString(),
+      //   ephemeral: true,
+      // });*/
+      return interaction.end();
     } else if (interaction.commandName === "clear") {
       await interaction.channel.bulkDelete(100, true);
       await interaction.reply({
         content: "clearage succesfull",
         ephemeral: true,
       });
+      return interaction.end();
     } else if (interaction.commandName === "eval") {
       const input = interaction.options.getString("input");
       try {
@@ -157,6 +157,7 @@ client.on("interactionCreate", async (interaction) => {
             ),
           ],
         });
+        return interaction.end();
       } catch (error) {
         if (error.message === "Error: Received one or more errors")
           console.error(error);
@@ -175,6 +176,7 @@ client.on("interactionCreate", async (interaction) => {
             ),
           ],
         });
+        return interaction.end();
       }
     } else if (interaction.commandName === "bitfield") {
       if (interaction.options.getSubCommand() === "permissions") {
@@ -187,6 +189,7 @@ client.on("interactionCreate", async (interaction) => {
           formatBits(bitProducer, bits, "Permissions Bitfield")
         );
         await interaction.reply({ content, ephemeral: true });
+        return interaction.end();
       } else if (interaction.options.getSubCommand() === "intents") {
         const bitProducer = (key) => GatewayIntentBits[key];
         const bits = new IntentsBitfield(
@@ -197,6 +200,7 @@ client.on("interactionCreate", async (interaction) => {
           formatBits(bitProducer, bits, "Intents Bitfield")
         );
         await interaction.reply({ content, ephemeral: true });
+        return interaction.end();
       }
     } else if (interaction.commandName === "snowflake") {
       await interaction.deferReply({ ephemeral: true });
@@ -222,6 +226,7 @@ client.on("interactionCreate", async (interaction) => {
         ],
         ephemeral: true,
       });
+      return interaction.end();
     } else if (interaction.commandName === "userinfo") {
       await interaction.deferReply();
       const user = await client.users.fetch(
@@ -250,14 +255,16 @@ client.on("interactionCreate", async (interaction) => {
         ],
         ephemeral: true,
       });
-      interaction.end();
+      return interaction.end();
     } else if (interaction.commandName === "ban") {
       const user = interaction.options.getUser("user");
       await interaction.guild.bans.create(user.id, { deleteMessageDays: 7 });
-      return await interaction.reply(`Banned ${user}`);
+      await interaction.reply(`Banned ${user}`);
+      interaction.end();
     } else if (interaction.commandName === "ping") {
       await interaction.reply("Pong!");
       await interaction.followUp("Pong again!");
+      return interaction.end();
     }
   }
 });
