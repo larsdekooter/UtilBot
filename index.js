@@ -254,27 +254,8 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.guild.bans.create(user.id, { deleteMessageDays: 7 });
       return await interaction.reply(`Banned ${user}`);
     } else if (interaction.commandName === "ping") {
-      await interaction.reply({
-        components: [
-          new ActionRowBuilder().addComponents(
-            new SelectMenuBuilder()
-              .setCustomId("select")
-              .setPlaceholder("Nothing selected")
-              .addOptions(
-                {
-                  label: "Select me",
-                  description: "This is a description",
-                  value: "first_option",
-                },
-                {
-                  label: "You can select me too",
-                  description: "This is also a description",
-                  value: "second_option",
-                }
-              )
-          ),
-        ],
-      });
+      await interaction.reply("Pong!");
+      await interaction.followUp("Pong again!");
     }
   }
 });
