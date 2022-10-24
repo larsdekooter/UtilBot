@@ -223,7 +223,7 @@ client.on("interactionCreate", async (interaction) => {
         ephemeral: true,
       });
     } else if (interaction.commandName === "userinfo") {
-      await client.rest.post(
+      /*await client.rest.post(
         Routes.interactionCallback(interaction.id, interaction.token),
         {
           body: {
@@ -233,7 +233,8 @@ client.on("interactionCreate", async (interaction) => {
             },
           },
         }
-      );
+      );*/
+      interaction.deferReply();
       interaction.deferred = true;
       const user = await client.users.fetch(
         interaction.options.getUser("user")?.id
