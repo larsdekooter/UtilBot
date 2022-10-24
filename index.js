@@ -24,6 +24,7 @@ import kleur from "kleur";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import fetch from "node-fetch";
 import { InteractionResponseType } from "discord-api-types/v10";
+kleur.enabled = true;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
