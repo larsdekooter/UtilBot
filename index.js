@@ -250,6 +250,7 @@ client.on("interactionCreate", async (interaction) => {
         ],
         ephemeral: true,
       });
+      interaction.end();
     } else if (interaction.commandName === "ban") {
       const user = interaction.options.getUser("user");
       await interaction.guild.bans.create(user.id, { deleteMessageDays: 7 });
