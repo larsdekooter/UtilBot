@@ -23,6 +23,7 @@ import {
 import kleur from "kleur";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import fetch from "node-fetch";
+import { InteractionResponseType } from "discord-api-types/v10";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -222,7 +223,18 @@ client.on("interactionCreate", async (interaction) => {
         ephemeral: true,
       });
     } else if (interaction.commandName === "userinfo") {
-      await interaction.deferReply({ ephemeral: true });
+      await client.rest.post(
+        Routes.interactionCallback(interaction.id, interaction.token),
+        {
+          body: {
+            type: InteractionResponseType.DeferredChannelMessageWithSource,
+            data: {
+              flags: null,
+            },
+          },
+        }
+      );
+      interaction.deferred = true;
       const user = await client.users.fetch(
         interaction.options.getUser("user")?.id
       );
