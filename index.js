@@ -264,12 +264,12 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply(`Banned ${user}`);
       interaction.end();
     } else if (interaction.commandName === "ping") {
-      await interaction.reply("Pong!");
+      await interaction.reply("ping");
       const file = new AttachmentBuilder(
         "./Public/KooterDiscordStructuresLogo.png",
         { name: "test.png" }
       );
-      interaction.channel.send({
+      interaction.followUp({
         files: [file],
         embeds: [new EmbedBuilder().setImage("attachment://test.png")],
       });
