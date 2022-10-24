@@ -223,7 +223,7 @@ client.on("interactionCreate", async (interaction) => {
         ephemeral: true,
       });
     } else if (interaction.commandName === "userinfo") {
-      interaction.deferReply();
+      await interaction.deferReply();
       const user = await client.users.fetch(
         interaction.options.getUser("user")?.id
       );
