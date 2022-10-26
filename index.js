@@ -264,7 +264,6 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply(`Banned ${user}`);
       interaction.end();
     } else if (interaction.commandName === "ping") {
-      await interaction.reply("ping");
       // Create the modal
       const modal = new ModalBuilder()
         .setCustomId("myModal")
