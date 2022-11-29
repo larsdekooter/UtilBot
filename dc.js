@@ -75,14 +75,14 @@ rest
           ),
         new SlashCommandBuilder()
           .setName("ping")
-          .setDescription("Replies with Pong!")
-          .addStringOption((o) =>
-            o
-              .setName("string")
-              .setDescription("string")
-              .setRequired(true)
-              .setAutocomplete(true)
-          ),
+          .setDescription("Replies with Pong!"),
+        // .addStringOption((o) =>
+        //   o
+        //     .setName("string")
+        //     .setDescription("string")
+        //     .setRequired(true)
+        //     .setAutocomplete(true)
+        // ),
       ],
     }
   )

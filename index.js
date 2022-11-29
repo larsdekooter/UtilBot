@@ -266,37 +266,8 @@ client.on("interactionCreate", async (interaction) => {
       await interaction.reply(`Banned ${user}`);
       interaction.end();
     } else if (interaction.commandName === "ping") {
-      // Create the modal
-      const modal = new ModalBuilder()
-        .setCustomId("myModal")
-        .setTitle("My Modal");
-
-      // Create the text components
-      const animalInput = new TextInputBuilder()
-        .setCustomId("favoriteAnimalInput")
-        // The label is what the user sees for this input
-        .setLabel("What is your favorite animal?")
-        // Short means only a single line of text
-        .setStyle(TextInputStyle.Short);
-
-      const hobbiesInput = new TextInputBuilder()
-        .setCustomId("hobbiesInput")
-        .setLabel("What are some of your favorite hobbies?")
-        // Paragraph means multiple lines of text
-        .setStyle(TextInputStyle.Paragraph);
-
-      // An action row can only hold one input, so you need one action row per input
-      const firstActionRow = new ActionRowBuilder().addComponents(animalInput);
-      const secondActionRow = new ActionRowBuilder().addComponents(
-        hobbiesInput
-      );
-
-      // Add the inputs to the modal
-      modal.addComponents(firstActionRow, secondActionRow);
-
-      // Show the modal to the user
-      await interaction.showModal(modal);
-      return interaction.end();
+      const user = await client.users.fetch(interaction.user.id);
+      await interaction.reply(`${user.flags}`);
     }
   }
   if (interaction.isAutocomplete()) {
