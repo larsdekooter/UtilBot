@@ -267,7 +267,7 @@ client.on("interactionCreate", async (interaction) => {
       interaction.end();
     } else if (interaction.commandName === "ping") {
       const user = await client.users.fetch(interaction.user.id);
-      await interaction.reply(`${user.flags}`);
+      await interaction.reply(`${user.flags?.bitfield}`);
     }
   }
   if (interaction.isAutocomplete()) {
