@@ -299,6 +299,79 @@ client.on("interactionCreate", async (interaction) => {
       return interaction.end();
     }
   }
+  if (interaction.isAutocomplete()) {
+    console.log(global.require);
+    const value = interaction.options.getFocused();
+    if (value.includes(".")) {
+      // Get the main accessor
+      const mainProperty = Object.getOwnPropertyNames(global).find(
+        (prop) => prop === value.split(".")[0]
+      );
+      // If there is no main property found, end the interaction and show nothing to the user
+      if (!mainProperty) {
+        await interaction.respond([]);
+        return interaction.end();
+      }
+      // Get all the individual properties, and remove the .'s
+      /**
+       * @type string[]
+       */
+      const accessors = value.split(".");
+      let obj = global;
+      let data = "";
+      /**
+       * @type string[]
+       */
+      let returnValue;
+      const isValid = accessors.every((a, index) => {
+        // Make sure it is not the last element of the array, so it wont show all the options of the the properties beforehand
+        if (typeof accessors[index + 1] !== "undefined") {
+          // If the property exists, change the obj and add the data to the return string.
+          if (Object.getOwnPropertyNames(obj).includes(a)) {
+            obj = obj[a];
+            data.length === 0 ? (data += `${a}`) : (data += `.${a}`);
+            return true;
+          }
+          // If it isnt valid, return false
+          return false;
+        }
+        // Get all the properties from the final object
+        returnValue = Object.getOwnPropertyNames(obj).filter((prop) =>
+          prop.toLowerCase().startsWith(a.toLowerCase())
+        );
+        return true;
+      });
+      // If it is valid, show all the options to the user
+      if (isValid) {
+        await interaction.respond(
+          returnValue
+            .map((val) => ({
+              name: `${data}.${val}`,
+              value: `${data}.${val}`,
+            }))
+            // Limit the array to 25
+            .slice(0, 25)
+        );
+        return interaction.end();
+      }
+      // If it isnt valid, show nothing
+      await interaction.respond([]);
+      return interaction.end();
+    } else {
+      // Get all the properties from the global scope
+      const properties = Object.getOwnPropertyNames(global);
+      // Filter the properties that don't start with the entered value
+      const values = properties
+        .filter((prop) => prop.toLowerCase().startsWith(value.toLowerCase()))
+        // Limit the array to 25
+        .slice(0, 25)
+        // Make it suitable for the response
+        .map((prop) => ({ value: prop, name: prop }));
+      // Show the items to the user
+      await interaction.respond(values);
+      return interaction.end();
+    }
+  }
 });
 app.listen(3000, () => console.log("seeya"));
 client.login(process.env.token);
